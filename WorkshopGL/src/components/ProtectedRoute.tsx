@@ -5,8 +5,11 @@ import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute: React.FC = () => {
     const {token} = useAuth();
+    console.log(token);
 
-    return token ? <Outlet/> : <Navigate to="/login" />;
+    return token ? <Outlet/> : <Navigate to="/register" />;
+
+
 };
 
 export default ProtectedRoute;
