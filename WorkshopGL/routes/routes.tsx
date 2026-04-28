@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import Register from "../src/pages/Register";
 import Login from "../src/pages/Login";
 import ProtectedRoute from "../src/components/ProtectedRoute";
+import LogoutModal from "../src/components/logoutModal";
 
 
 export const router = createBrowserRouter([
@@ -19,6 +20,11 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register/>
+  },
+
+  {
+    path: "/logoutModal",
+    element: <LogoutModal />
   }
 ]);
 
