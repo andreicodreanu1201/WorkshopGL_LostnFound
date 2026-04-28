@@ -1,4 +1,5 @@
 import axiosInstance from './axiosInstance';
+import { type ItemUpdateDTO } from './types';
 
 // ============================================
 // Global Base URL Configuration
@@ -59,6 +60,25 @@ export const usersApi = {
 // Add more endpoint groups as needed
 // export const productsApi = { ... };
 // export const ordersApi = { ... };
+
+
+export const itemsApi = {
+  getAll: async() => {
+    return axiosInstance.get('/items');
+  },
+  getById: async(id: string) => {
+    return axiosInstance.get(`/items/${id}`);
+  },
+  create: async(data: any) => {
+    return axiosInstance.post('/items', data);
+  },
+  update: async(id: string, data: ItemUpdateDTO) => {
+    return axiosInstance.put(`/items/${id}`, data);
+  },
+  delete: async(id: string) => {
+    return axiosInstance.delete(`/items/${id}`);
+  }
+}
 
 export default {
   auth: authApi,
