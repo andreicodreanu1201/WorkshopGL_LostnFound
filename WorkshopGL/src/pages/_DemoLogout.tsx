@@ -1,5 +1,5 @@
-// TEMPORARY DEMO PAGE — remove this file before merging.
-// Used to test the LogoutModal locally via /demo-logout.
+
+
 import React, { useState } from "react";
 import LogoutModal from "../components/LogoutModal";
 
@@ -7,9 +7,21 @@ const DemoLogout: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+        <div
+            style={{
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "2rem",
+                fontFamily: "sans-serif",
+                textAlign: "center",
+            }}
+        >
             <h1>Logout Modal demo</h1>
             <p>Click the button to open the logout confirmation dialog.</p>
+
             <button
                 type="button"
                 onClick={() => setIsOpen(true)}
