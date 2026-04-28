@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        /* Bara de sus cu titlu + butoane */
+        
+        .top-bar {
+            background: #2b6cb0;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-bar h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown button {
+            padding: 10px 15px;
+            background: white;
+            color: #2b6cb0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        /* LISTELE DROPDOWN CU TEXT NEGRU */
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 10;
+            color: black;
+            /* TEXT NEGRU */
+        }
+        
+        .logout button {
+            padding: 10px 15px;
+            background: white;
+            color: #2b6cb0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .dropdown-content div {
+            padding: 10px;
+            cursor: pointer;
+            color: black;
+            /* TEXT NEGRU */
+        }
+        
+        .dropdown-content div:hover {
+            background: #e2e8f0;
+        }
+        
+        .dropdown.show .dropdown-content {
+            display: block;
+        }
+        /* Partea de jos goală */
+        
+        .items-section {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        #itemsGrid {
+            padding: 40px;
+            min-height: 200px;
+            /* doar ca să nu fie lipit de titlu */
+        }
+        
+        .search-container {
+            display: flex;
+            align-items: center;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            overflow: hidden;
+            margin: auto;
+            margin-top: 30px;
+        }
+        
+        .search-container input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .search-container button {
+            padding: 10px 15px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .search-container button:hover {
+            background: #116dcf;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Bara de sus cu titlu + butoane -->
+    <div class="top-bar">
+        <h1>Lost & Found</h1>
+
+        <div class="controls">
+
+            <div class="dropdown" id="statusDropdown">
+                <button onclick="toggleDropdown('statusDropdown')">Status</button>
+                <div class="dropdown-content">
+                    <div onclick="filterByStatus('toate')">Toate</div>
+                    <div onclick="filterByStatus('pierdute')">Pierdute</div>
+                    <div onclick="filterByStatus('gasite')">Găsite</div>
+                </div>
+            </div>
+            <!-- Dropdown Sortare (categorie) -->
+            <div class="dropdown" id="sortDropdown">
+                <button onclick="toggleDropdown('sortDropdown')">Sortare</button>
+                <div class="dropdown-content">
+                    <div onclick="filterByCategory('toate')">Toate</div>
+                    <div onclick="filterByCategory('animale')">Animale</div>
+                    <div onclick="filterByCategory('obiecte')">Obiecte</div>
+                </div>
+            </div>
+
+            <!-- Dropdown Ordonare (dată) -->
+            <div class="dropdown" id="orderDropdown">
+                <button onclick="toggleDropdown('orderDropdown')">Ordonare</button>
+                <div class="dropdown-content">
+                    <div onclick="orderBy('vechi')">De la cel mai vechi la cel mai nou</div>
+                    <div onclick="orderBy('nou')">De la cel mai nou la cel mai vechi</div>
+                </div>
+            </div>
+            <div class="logout">
+                <button>Logout</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Caută..." oninput="handleSearch(this.value)">
+        <button onclick="handleSearch(document.getElementById('searchBar').value)">
+    🔍
+  </button>
+    </div>
+
+    <!-- Partea de jos goală -->
+    <section class="items-section">
+        <h2>Obiecte recente</h2>
+
+        <div id="itemsGrid">
+            <!-- Gol, exact cum ai cerut -->
+        </div>
+    </section>
+
+    <script>
+        let items = []; // lista goală
+
+        function toggleDropdown(id) {
+
+            document.querySelectorAll(".dropdown").forEach(d => {
+                if (d.id !== id) {
+                    d.classList.remove("show");
+                }
+            });
+            document.getElementById(id).classList.toggle("show");
+        }
+
+        // Închide dropdown-urile când dai click în afara lor
+        window.onclick = function(event) {
+            if (!event.target.matches("button")) {
+                document.querySelectorAll(".dropdown").forEach(d => d.classList.remove("show"));
+            }
+        }
+
+        function filterByCategory(category) {
+            console.log("Filtru selectat:", category);
+
+            const params = new URLSearchParams(window.location.search);
+            params.set("sortare", category);
+
+            window.location.search = params.toString();
+        }
+
+        function orderBy(type) {
+            console.log("Ordonare selectată:", type);
+
+            const params = new URLSearchParams(window.location.search);
+            params.set("ordonare", type);
+
+            window.location.search = params.toString();
+        }
+
+        function handleSearch(query) {
+            console.log("Cauți:", query);
+
+            // Aici poți adăuga logica ta:
+            // ex:
+            // - redirect către altă pagină
+            // - apel API
+            // - filtrare date
+
+            // Exemplu redirect:
+            // window.location.href = "/search?q=" + encodeURIComponent(query);
+        }
+
+        function filterByStatus(status) {
+            console.log("Status selectat:", status);
+
+            const params = new URLSearchParams(window.location.search);
+            params.set("status", status);
+
+            window.location.search = params.toString();
+        }
+    </script>
+
+</body>
+
+</html>
