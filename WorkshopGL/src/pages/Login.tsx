@@ -27,7 +27,7 @@ export default function Login() {
       const response = await authApi.login(email, password);
       const token = response?.token;
       if (token) localStorage.setItem('authToken', token);
-      navigate('/dashboard');
+      navigate('/homepage');
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } } };
       setError(error?.response?.data?.message || 'Email sau parolă incorectă.');

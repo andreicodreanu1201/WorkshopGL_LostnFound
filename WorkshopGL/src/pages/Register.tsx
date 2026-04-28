@@ -32,7 +32,7 @@ export default function Register() {
       );
       const token = response?.token;
       if (token) localStorage.setItem('authToken', token);
-      navigate('/dashboard');
+      navigate('/homepage');
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } } };
       setError(error?.response?.data?.message || 'A apărut o eroare. Încearcă din nou.');
