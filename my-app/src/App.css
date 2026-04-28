@@ -1,0 +1,70 @@
+.olx-card {
+  width: 300px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-family: Arial, sans-serif;
+}
+
+.olx-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.olx-image-wrapper {
+  position: relative;
+}
+
+.olx-image-wrapper img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.olx-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff8c00;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.olx-content {
+  padding: 12px;
+}
+
+.olx-title {
+  font-size: 18px;
+  margin: 0 0 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.olx-location,
+.olx-date {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.olx-reward {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #008000;
+  font-weight: bold;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
