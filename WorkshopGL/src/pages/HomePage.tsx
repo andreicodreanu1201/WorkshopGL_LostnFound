@@ -2,6 +2,7 @@ import React from "react";
 import { item_data } from "../mock/items.mock";
 import { Container, Typography, Grid, Card, CardActionArea, CardMedia, CardContent, Box, Chip } from "@mui/material";
 import { useNavigate } from "react-router";
+import { Button } from "@mui/material";
 
 export const HomePage: React.FC = () => {
 

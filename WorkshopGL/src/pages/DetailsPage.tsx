@@ -17,6 +17,7 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useDeleteItem } from "../hooks/useDeleteItem";
 
 
 const style = {
@@ -49,7 +50,8 @@ const style = {
 export const DetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const{mutate, isPending} = useUpdateItem();
+  const{mutate} = useUpdateItem();
+  const{mutate:mutateDeleteItem} = useDeleteItem();
 
   const item = item_data.find((item) => item.id === id);
 
@@ -231,7 +233,7 @@ export const DetailsPage: React.FC = () => {
         </Stack>
       </Box>
     </Modal>
-                <Button variant = "contained" color = "error">Delete</Button>
+                <Button variant = "contained" color = "error" onClick={() => mutateDeleteItem(item.id)}>Delete</Button>
                 
 
               </Box>
