@@ -13,9 +13,10 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
-    if (newValue === 1) navigate('/register');
-  };
+    const [form, setForm] = React.useState({
+        email: "",
+        password: "",
+    });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
