@@ -1,5 +1,5 @@
 import axiosInstance from './axiosInstance';
-import { ItemUpdateDTO } from './types';
+import { type ItemUpdateDTO } from './types';
 
 // ============================================
 // Global Base URL Configuration
